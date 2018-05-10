@@ -1,3 +1,4 @@
+//老版的代码，用cookie保存电话号码
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="common/libs.jsp" %>
 <!DOCTYPE html>

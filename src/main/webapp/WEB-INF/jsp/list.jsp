@@ -1,11 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="common/tag.jsp" %>
+<%@include file="common/libs.jsp" %>
 <!DOCTYPE html>
 <html>
 
 <head>
     <title>秒杀列表页</title>
-    <%@include file="common/head.jsp" %>
 </head>
 
 <body>
@@ -43,7 +42,7 @@
                             <fmt:formatDate value="${sk.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
                         </td>
                         <td>
-                            <a class="btn btn-info" href="/seckill/${sk.seckillId}/detail" 　target="_blank">Link</a>
+                            <a class="btn btn-info" href="<c:url value="/seckill/"/>${sk.seckillId}/detail" 　target="_blank">Link</a>
                         </td>
                     </tr>
                 </c:forEach>
@@ -56,6 +55,5 @@
 </div>
 
 </body>
-<script src="https://code.jquery.com/jquery.js"></script>
-<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
 </html>

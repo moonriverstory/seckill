@@ -1,4 +1,4 @@
-//为了jmeter测试高并发，去除md5暴漏url逻辑，去除倒计时逻辑，去掉存储过程 =。=
+//老版的秒杀控制类，需要md5暴漏服务url，然后校验 =。=
 
 package org.seckill.web;
 
@@ -24,7 +24,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/seckill")//url:/模块/资源/{id}/细分
-public class SeckillController {
+public class SeckillController_with_md5_check {
 
     private Log LOG = LogFactory.getLog(this.getClass());
 
@@ -118,6 +118,7 @@ public class SeckillController {
 
         try {
             SeckillExecution execution = seckillService.executeSeckill(seckillId, killPhone, md5);
+            //SeckillExecution execution = seckillService.executeSeckillProcedure(seckillId, killPhone, md5);
             return new SeckillResult<SeckillExecution>(true, execution);
         } catch (RepeatKillException e) {
             SeckillExecution execution = new SeckillExecution(seckillId, SeckillStatEnum.REPEAT_KILL);

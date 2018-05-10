@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 /**
  * 暴露秒杀地址DTO(dto:web层和service层传递数据用)
- * Created by wchb7 on 16-5-13.
  */
 public class Exposer implements Serializable {
 

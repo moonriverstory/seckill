@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 @ContextConfiguration("classpath:spring/spring-dao.xml")
 public class RedisDaoTest {
 
-    private long id = 1001;
+    private long id = 1000;
 
     @Autowired
     private RedisDao redisDao;

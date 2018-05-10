@@ -2,10 +2,6 @@ package org.seckill.dto;
 
 import java.io.Serializable;
 
-/**
- * Created by wchb7 on 16-5-23.
- */
-
 //DTO:完成WEB层到Service层的数据传递
 //所有的ajax请求的返回类型封装JSON结果
 public class SeckillResult<T> implements Serializable {

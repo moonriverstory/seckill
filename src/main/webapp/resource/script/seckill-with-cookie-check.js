@@ -1,5 +1,4 @@
-//为了jmeter高并发测试，去除cookie验证和保存phone number，改为param传递
-
+//老版的代码，用cookie保存电话号码
 
 //项目根目录
 var basePath = '/';
