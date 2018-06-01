@@ -139,6 +139,7 @@ var seckill = {
                     seckill.countDown(seckillId, now, start, end);
                 }
             } else {
+                //console..
             }
         });
 

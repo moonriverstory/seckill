@@ -11,7 +11,6 @@ import java.util.List;
 
 /**
  * 业务接口:站在"使用者"的角度设计接口
- * 1.方法的定义的粒度.2.参数.3.返回类型(return /异常)
  */
 public interface SeckillService {
 
@@ -51,6 +50,18 @@ public interface SeckillService {
      * @return
      */
     SeckillExecution executeSeckill(long seckillId, long userPhone, String md5) throws SeckillException, RepeatKillException, SeckillCloseException;
+
+    /**
+     * 执行秒杀操作-没有md5验证
+     *
+     * @param seckillId
+     * @param userPhone
+     * @return
+     * @throws SeckillException
+     * @throws RepeatKillException
+     * @throws SeckillCloseException
+     */
+    SeckillExecution executeSeckill(long seckillId, long userPhone) throws SeckillException, RepeatKillException, SeckillCloseException;
 
     /**
      * 执行秒杀操作 by 存储过程

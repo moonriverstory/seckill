@@ -15,8 +15,8 @@ var seckill = {
         exposer: function (seckillId) {
             return basePath + 'seckill/' + seckillId + '/exposer';
         },
-        execution: function (seckillId, md5) {
-            return basePath + 'seckill/' + seckillId + '/' + md5 + '/execution';
+        execution: function (seckillId, killPhone) {
+            return basePath + 'seckill/' + seckillId + '/' + killPhone + '/execution';
         }
     },
 

@@ -85,9 +85,7 @@ public class SeckillController {
     @RequestMapping(value = "/{seckillId}/exposer", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
     @ResponseBody
     public SeckillResult<Exposer> exposer(@PathVariable("seckillId") Long seckillId) {
-
         SeckillResult<Exposer> result;
-
         try {
             Exposer exposer = seckillService.exportSeckillUrl(seckillId);
             result = new SeckillResult<Exposer>(true, exposer);
@@ -95,12 +93,13 @@ public class SeckillController {
             LOG.error(e.getMessage());
             result = new SeckillResult<Exposer>(false, e.getMessage());
         }
-
         return result;
     }
 
     /**
      * 执行秒杀
+     * 有md5
+     * phone从cookie传来
      *
      * @param seckillId
      * @param md5
@@ -118,6 +117,43 @@ public class SeckillController {
 
         try {
             SeckillExecution execution = seckillService.executeSeckill(seckillId, killPhone, md5);
+            //SeckillExecution execution = seckillService.executeSeckillProcedure(seckillId, killPhone, md5);
+            return new SeckillResult<SeckillExecution>(true, execution);
+        } catch (RepeatKillException e) {
+            SeckillExecution execution = new SeckillExecution(seckillId, SeckillStatEnum.REPEAT_KILL);
+            return new SeckillResult<SeckillExecution>(true, execution);
+
+        } catch (SeckillCloseException e2) {
+            SeckillExecution execution = new SeckillExecution(seckillId, SeckillStatEnum.END);
+            return new SeckillResult<SeckillExecution>(true, execution);
+
+        } catch (Exception e) {
+            LOG.error(e.getMessage());
+            SeckillExecution execution = new SeckillExecution(seckillId, SeckillStatEnum.INNER_ERROR);
+            return new SeckillResult<SeckillExecution>(true, execution);
+        }
+
+    }
+
+    /**
+     * 执行秒杀
+     * 无md5
+     * 这个目前只用来jmeter测试，没有前端传入
+     *
+     * @param seckillId
+     * @param killPhone
+     * @return
+     */
+    @RequestMapping(value = "/{seckillId}/kill", method = RequestMethod.POST, produces = {"application/json;charset=UTF-8"})
+    @ResponseBody
+    public SeckillResult<SeckillExecution> kill(@PathVariable("seckillId") Long seckillId, @RequestParam("killPhone") Long killPhone) {
+
+        if (killPhone == null) {
+            return new SeckillResult<SeckillExecution>(false, SeckillStatEnum.NOT_LOGIN.getStateInfo());
+        }
+
+        try {
+            SeckillExecution execution = seckillService.executeSeckill(seckillId, killPhone);
             return new SeckillResult<SeckillExecution>(true, execution);
         } catch (RepeatKillException e) {
             SeckillExecution execution = new SeckillExecution(seckillId, SeckillStatEnum.REPEAT_KILL);
